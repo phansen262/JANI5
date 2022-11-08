@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/snav_home"
+        android:enabled="true"
+        android:title="Home"/>
+
+    <group android:id="@+id/main_nav_g_one">
+        <item
+            android:id="@+id/snav_plan"
+            android:enabled="true"
+            android:title="Plan"/>
+
+        <item
+            android:id="@+id/snav_calendar"
+            android:enabled="true"
+            android:title="Calendar"/>
+
+        <item
+            android:id="@+id/snav_goals"
+            android:enabled="true"
+            android:title="Goals"/>
+
+    </group>
+
+    <group android:id="@+id/main_nav_g_two">
+
+        <item
+            android:id="@+id/snav_body_analysis"
+            android:enabled="true"
+            android:title="Body Analysis"/>
+
+        <item
+            android:id="@+id/snav_nutrition"
+            android:enabled="true"
+            android:title="Nutrition"/>
+
+    </group>
+
+    <group android:id="@+id/main_nav_g_three">
+        <item
+            android:id="@+id/snav_exercise"
+            android:enabled="true"
+            android:title="Workout Library"/>
+
+        <item
+            android:id="@+id/snav_locations"
+            android:enabled="true"
+            android:title="Support Library"/>
+
+    </group>
+
+    <group android:id="@+id/main_nav_g_four">
+
+        <item
+            android:id="@+id/snav_settings"
+            android:enabled="true"
+            android:title="Settings"/>
+    </group>
+
+</menu>

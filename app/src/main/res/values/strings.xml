@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">JANI 5</string>
+
+    <!-- BNav Names -->
+    <string name="day_title_bnav">Day</string>
+    <string name="week_title_bnav">Week</string>
+    <string name="workouts_title_bnav">Workouts</string>
+    <string name="progress_title_bnav">Progress</string>
+
+    <!-- SNav Names -->
+    <string name="profile_frag_name">Profile</string>
+    <string name="plan_frag_name">Plan</string>
+    <string name="calendar_frag_name">Calendar</string>
+    <string name="goals_frag_name">Goals</string>
+    <string name="mybod_frag_name">MyBod</string>
+    <string name="nutrition_frag_name">Nutrition</string>
+    <string name="wlib_frag_name">Workout Library</string>
+    <string name="slib_frag_name">Support Library</string>
+    <string name="settings_frag_name">Settings</string>
+
 </resources>
