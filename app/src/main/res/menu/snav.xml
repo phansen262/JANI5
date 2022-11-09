@@ -10,17 +10,17 @@
         <item
             android:id="@+id/snav_plan"
             android:enabled="true"
-            android:title="Plan"/>
+            android:title="@string/plan_frag_name"/>
 
         <item
             android:id="@+id/snav_calendar"
             android:enabled="true"
-            android:title="Calendar"/>
+            android:title="@string/calendar_frag_name"/>
 
         <item
             android:id="@+id/snav_goals"
             android:enabled="true"
-            android:title="Goals"/>
+            android:title="@string/goals_frag_name"/>
 
     </group>
 
@@ -29,12 +29,12 @@
         <item
             android:id="@+id/snav_body_analysis"
             android:enabled="true"
-            android:title="Body Analysis"/>
+            android:title="@string/mybod_frag_name"/>
 
         <item
             android:id="@+id/snav_nutrition"
             android:enabled="true"
-            android:title="Nutrition"/>
+            android:title="@string/nutrition_frag_name"/>
 
     </group>
 
@@ -42,12 +42,12 @@
         <item
             android:id="@+id/snav_exercise"
             android:enabled="true"
-            android:title="Workout Library"/>
+            android:title="@string/wlib_frag_name"/>
 
         <item
             android:id="@+id/snav_locations"
             android:enabled="true"
-            android:title="Support Library"/>
+            android:title="@string/slib_frag_name"/>
 
     </group>
 
@@ -56,7 +56,7 @@
         <item
             android:id="@+id/snav_settings"
             android:enabled="true"
-            android:title="Settings"/>
+            android:title="@string/settings_frag_name"/>
     </group>
 
 </menu>

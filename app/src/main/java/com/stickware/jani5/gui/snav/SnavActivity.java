@@ -21,8 +21,15 @@ public class SnavActivity extends AppCompatActivity {
 
         //Initiate layout aspects
         setContentView(R.layout.snav_activity);
-
         mainNavBar = new MainNavBar(this, R.string.app_name, true);
+
+        //Initiate selected Snav Fragment Desired
+        for (SnavLocations loc : SnavLocations.values()) {
+            if (this.getResources().getString(loc.mKey).equals(getIntent().getExtras().getString("Starter"))) {
+                getSupportFragmentManager().beginTransaction().add(R.id.frag_container_sa, loc.mFrag).commit();
+                break;
+            }
+        }
     }
 
 

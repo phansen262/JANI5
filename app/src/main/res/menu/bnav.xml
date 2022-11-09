@@ -17,12 +17,12 @@
         android:id="@+id/bnav_workouts"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_view_headline_24"
-        android:title="@string/workouts_title_bnav"/>
+        android:title="@string/timeline_title_bnav"/>
 
     <item
         android:id="@+id/bnav_profile"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_trending_up_24"
-        android:title="@string/profile_title_bnav"/>
+        android:title="@string/progress_title_bnav"/>
 
 </menu>

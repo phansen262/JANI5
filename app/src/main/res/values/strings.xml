@@ -4,7 +4,7 @@
     <!-- BNav Names -->
     <string name="day_title_bnav">Day</string>
     <string name="week_title_bnav">Week</string>
-    <string name="workouts_title_bnav">Workouts</string>
+    <string name="timeline_title_bnav">Timeline</string>
     <string name="progress_title_bnav">Progress</string>
 
     <!-- SNav Names -->
