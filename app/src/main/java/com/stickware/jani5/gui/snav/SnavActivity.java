@@ -2,6 +2,7 @@ package com.stickware.jani5.gui.snav;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +13,8 @@ import com.stickware.jani5.gui.library.navigation.MainNavBar;
 
 public class SnavActivity extends AppCompatActivity {
 
-    public MainNavBar mainNavBar;
+    public static MainNavBar mainNavBar;
+    public static boolean hasMenuBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
@@ -32,12 +34,19 @@ public class SnavActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     //Handle Options Selected From ActionBar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
 
-        if(mainNavBar.getmToggle().onOptionsItemSelected(item)){
+        if(!hasMenuBar){
+            return false;
+        }
+        else if(mainNavBar.getmToggle().onOptionsItemSelected(item)){
             mainNavBar.setNavViewListener(this);
             return true;
         }

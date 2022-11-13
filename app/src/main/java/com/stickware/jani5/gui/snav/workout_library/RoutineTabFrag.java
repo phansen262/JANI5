@@ -1,25 +1,20 @@
 package com.stickware.jani5.gui.snav.workout_library;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.stickware.jani5.R;
+import com.stickware.jani5.gui.snav.LibraryGenFrag;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import com.stickware.jani5.databinding.SnavWlRoutineTabFragBinding;
-
-public class RoutineTabFrag extends Fragment {
-
-    private SnavWlRoutineTabFragBinding mBinding;
+public class RoutineTabFrag extends LibraryGenFrag {
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void addCreateView() {
+        super.addCreateView();
 
-        super.onCreate(savedInstanceState);
+    }
 
-        mBinding = SnavWlRoutineTabFragBinding.inflate(inflater, container, false);
-        return mBinding.getRoot();
+    @Override
+    protected void addViewCreated(){
+
+        hasTabs = true;
+        mTabs = requireActivity().findViewById(R.id.tabs_swmf);
     }
 }

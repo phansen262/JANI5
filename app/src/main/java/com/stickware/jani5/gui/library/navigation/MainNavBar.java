@@ -1,6 +1,7 @@
 package com.stickware.jani5.gui.library.navigation;
 
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,14 +13,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.stickware.jani5.R;
 import com.stickware.jani5.gui.main.MainActivity;
 import com.stickware.jani5.gui.snav.SnavActivity;
-import com.stickware.jani5.gui.snav.calendar.CalendarMainFrag;
-import com.stickware.jani5.gui.snav.goals.GoalsMainFrag;
-import com.stickware.jani5.gui.snav.my_bod.MyBodMainFrag;
-import com.stickware.jani5.gui.snav.nutrition.NutritionMainFrag;
-import com.stickware.jani5.gui.snav.plan.PlanMainFrag;
-import com.stickware.jani5.gui.snav.settings.SettingsMainFrag;
-import com.stickware.jani5.gui.snav.support_library.SLibMainFrag;
-import com.stickware.jani5.gui.snav.workout_library.WLibMainFrag;
 
 public class MainNavBar {
 
@@ -59,6 +52,17 @@ public class MainNavBar {
             activity.finish();
             return false;
         });
+    }
+
+    //Set if uses menu or back button
+    public static void setHasMenu(MainNavBar navBar, boolean hasMenu){
+        if(hasMenu){
+            navBar.mBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+            navBar.mToggle.syncState();
+        } else {
+            navBar.mBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        }
+        navBar.mBar.setDisplayHomeAsUpEnabled(true);
     }
 
     //Need to supply as String Resource

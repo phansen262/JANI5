@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="ListVisible"
+            type="Integer" />
+        <variable
+            name="MainVisible"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
+            android:visibility="@{MainVisible}"
+            android:id="@+id/image_main_header_sglbf"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/text_search_sglbf"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:padding="15dp"
+                    android:hint="Search"
+                    android:minHeight="48dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:importantForAutofill="no" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/buttonbar_list_snglbf"
+                    android:visibility="@{ListVisible}">
+
+                    <Button
+                        android:id="@+id/button_recents_sglbf"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="Recents"
+                        style="?android:attr/buttonBarButtonStyle" />
+
+                    <Button
+                        android:id="@+id/button_favorites_sglbf"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:text="Favorites"
+                        style="?android:attr/buttonBarButtonStyle" />
+
+                    <Button
+                        android:id="@+id/button_filter_sglbf"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Filter"
+                        style="?android:attr/buttonBarButtonStyle" />
+
+                </LinearLayout>
+                
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonbar_main_sglbf"
+                    android:stretchColumns="1"
+                    android:visibility="@{MainVisible}">
+                    <TableRow>
+                        <Button
+                            android:id="@+id/button_recents_main_sglbf"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Recents"
+                            style="?android:attr/buttonBarButtonStyle" />
+
+                        <Button
+                            android:id="@+id/button_favorites_main_sglbf"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Favorites"
+                            style="?android:attr/buttonBarButtonStyle" />
+                    </TableRow>
+                    <TableRow>
+                        <Button
+                            android:id="@+id/button_filter_main_sglbf"
+                            app:layout_constraintTop_toBottomOf="@id/button_filter_main_sglbf"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/button_all_main_sglbf"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Filter"
+                            style="?android:attr/buttonBarButtonStyle" />
+
+                        <Button
+                            android:id="@+id/button_all_main_sglbf"
+                            app:layout_constraintStart_toEndOf="@id/button_filter_main_sglbf"
+                            app:layout_constraintTop_toBottomOf="@id/button_favorites_main_sglbf"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/button_filter_main_sglbf"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="All"
+                            style="?android:attr/buttonBarButtonStyle" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="@{MainVisible}">
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/list_constraint_sglbf"
+            android:visibility="@{ListVisible}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recycler_sglbf"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_add_24"
+                android:id="@+id/new_floating_button_sglbf"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="@id/list_constraint_sglbf"
+                app:layout_constraintBottom_toBottomOf="@id/recycler_sglbf"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{MainVisible}"
+            android:text="Create New"
+            android:id="@+id/new_button_sglbf"/>
+
+    </LinearLayout>
+
+</layout>
