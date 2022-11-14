@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
-import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.SnavGenLibraryBaseFragBinding;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
+import com.stickware.jani5.gui.snav.support_library.SLibMainFrag;
 
 public class LibraryGenFrag extends Fragment {
 
@@ -23,13 +23,18 @@ public class LibraryGenFrag extends Fragment {
     protected TabLayout mTabs;
     protected boolean hasTabs;
 
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         genBinding = SnavGenLibraryBaseFragBinding.inflate(inflater, container, false);
+        System.out.println("THIS1");
         setHasOptionsMenu(true);
+        System.out.println("THIS2");
         addCreateView();
+        System.out.println("THIS3");
         return genBinding.getRoot();
     }
 
@@ -40,11 +45,9 @@ public class LibraryGenFrag extends Fragment {
         //NEEDS TO BE APPLIED FIRST!!!
         addViewCreated();
 
-        //Set Initial View
-        setMain();
-
         genBinding.textSearchSglbf.setOnFocusChangeListener((view1, b) -> {
-            setListView();
+            setSearchSelectListener();
+            System.out.println("This is LibGenFrag 45:  " + SLibMainFrag.mFragState.toString());
         });
 
         genBinding.textSearchSglbf.setOnEditorActionListener((textView, i, keyEvent) -> {
@@ -77,18 +80,24 @@ public class LibraryGenFrag extends Fragment {
         SnavActivity.hasMenuBar = false;
     }
 
-    //Methods for inserting location specific code
-    protected void addViewCreated(){}
-    protected void addCreateView(){}
-
     //Handle menu listener? Should only be called if in listview
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
 
-        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
-        genBinding.textSearchSglbf.clearFocus();
-        setMain();
+
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+            genBinding.textSearchSglbf.clearFocus();
+            System.out.println("WHY THE FUCK IS THIS BEING CALLED");
+            setBackListener();
+
+
         return super.onOptionsItemSelected(item);
     }
+
+    //Methods for inserting location specific code
+    protected void addViewCreated(){}
+    protected void addCreateView(){}
+    protected void setSearchSelectListener(){}
+    protected void setBackListener(){}
 }

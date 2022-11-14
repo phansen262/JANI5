@@ -11,11 +11,13 @@ import com.stickware.jani5.R;
 
 public class EditLocation extends DialogFragment {
 
+    public static String TAG = "EditLocationDialog";
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // Use the Builder class for convenient dialog construction
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(R.string.day_title_bnav)
                 .setPositiveButton(R.string.app_name, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -30,5 +32,4 @@ public class EditLocation extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
-
 }
