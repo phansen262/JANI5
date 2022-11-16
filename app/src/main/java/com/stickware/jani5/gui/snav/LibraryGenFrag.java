@@ -30,11 +30,8 @@ public class LibraryGenFrag extends Fragment {
 
         super.onCreate(savedInstanceState);
         genBinding = SnavGenLibraryBaseFragBinding.inflate(inflater, container, false);
-        System.out.println("THIS1");
         setHasOptionsMenu(true);
-        System.out.println("THIS2");
         addCreateView();
-        System.out.println("THIS3");
         return genBinding.getRoot();
     }
 
@@ -45,11 +42,12 @@ public class LibraryGenFrag extends Fragment {
         //NEEDS TO BE APPLIED FIRST!!!
         addViewCreated();
 
+        //Listener for click selection
         genBinding.textSearchSglbf.setOnFocusChangeListener((view1, b) -> {
             setSearchSelectListener();
-            System.out.println("This is LibGenFrag 45:  " + SLibMainFrag.mFragState.toString());
         });
 
+        //Sets listener for hitting enter/search in keyboard, currently only hides keyboard, probably add another insert overridable method
         genBinding.textSearchSglbf.setOnEditorActionListener((textView, i, keyEvent) -> {
 
             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -84,13 +82,10 @@ public class LibraryGenFrag extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
 
-
-            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
-            genBinding.textSearchSglbf.clearFocus();
-            System.out.println("WHY THE FUCK IS THIS BEING CALLED");
-            setBackListener();
-
+        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+        genBinding.textSearchSglbf.clearFocus();
+        setBackListener();
 
         return super.onOptionsItemSelected(item);
     }

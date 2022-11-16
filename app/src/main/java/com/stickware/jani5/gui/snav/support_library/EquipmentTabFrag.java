@@ -14,7 +14,13 @@ public class EquipmentTabFrag extends LibraryGenFrag {
     @Override
     protected void addViewCreated(){
 
+        //Set Initial View
         hasTabs = true;
         mTabs = requireActivity().findViewById(R.id.tabs_ssmf);
+        if(SLibMainFrag.mFragState.getHasMenu()) {
+            setMain();
+        } else {
+            setListView();
+        }
     }
 }

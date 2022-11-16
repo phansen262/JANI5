@@ -15,6 +15,7 @@ import com.stickware.jani5.databinding.SnavSlMainFragBinding;
 
 public class SLibMainFrag extends Fragment {
 
+    //Enum to control viewstate of general location
     public enum FragState {
         EQUIPMENTMAIN(true, 0),
         EQUIPMENTLIST(false, 0),
@@ -34,6 +35,7 @@ public class SLibMainFrag extends Fragment {
     }
 
     private SnavSlMainFragBinding mBinding;
+    //TODO: Instead of this being static, find way to reference instance of fragment for getAcitvity() ??
     public static FragState mFragState;
 
     @Override
@@ -42,18 +44,13 @@ public class SLibMainFrag extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(mFragState == null){
-            System.out.println("SETTING FRAG TYPE TO E-MAIN - Default Clause");
             mFragState = FragState.EQUIPMENTMAIN;
         }
-        System.out.println("IS SLIB MAIN 48   " + mFragState.toString());
 
         mBinding = SnavSlMainFragBinding.inflate(inflater, container, false);
 
-        //Default is to have equipment when navigated to the snav location
-        //Todo: change to have dynamic behavior as to what is default loaded
-        System.out.println("Right before the frag would start");
+        //Default is to have equipment when navigated to the snav location from outside, now should move to last location when internal
         if(mFragState.getTabIndex() == 0) {
-            System.out.println("SLIBMAIN 55:  " + mFragState.toString());
             mBinding.tabsSsmf.getTabAt(0).select();
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_ssmf, new EquipmentTabFrag()).commit();
         } else {
@@ -69,15 +66,14 @@ public class SLibMainFrag extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        //Listener to move between tabs
         mBinding.tabsSsmf.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(mBinding.tabsSsmf.getSelectedTabPosition() == 0){
-                    System.out.println("SETTINGS SLIB MAIN FRAG 75");
                     mFragState = FragState.EQUIPMENTMAIN;
                     requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_ssmf, new EquipmentTabFrag()).commit();
                 } else {
-                    System.out.println("SETTINGS! SLIB MAIN FRAG 79");
                     mFragState = FragState.LOCATIONMAIN;
                     requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_ssmf, new LocationTabFrag()).commit();
                 }

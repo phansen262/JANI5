@@ -23,7 +23,6 @@ public class LocationTabFrag extends LibraryGenFrag {
         hasTabs = true;
         mTabs = requireActivity().findViewById(R.id.tabs_ssmf);
         if(SLibMainFrag.mFragState.getHasMenu()) {
-            System.out.println("LibGenFrag 45: " + SLibMainFrag.mFragState.toString());
             setMain();
         } else {
             setListView();
@@ -31,28 +30,32 @@ public class LocationTabFrag extends LibraryGenFrag {
 
         //Setup new buttons
         genBinding.newButtonSglbf.setOnClickListener(view -> {
+            //Very important to set hasOptionsMenu to false, otherwise the back code will still run from this frag
             setHasOptionsMenu(false);
             SnavActivity.hasMenuBar = false;
+            //Move to next frag
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa,
-                    EditLocationFrag.newInstance(SnavActivity.mainNavBar)).commit();
+                    EditLocationFrag.newInstance(SnavActivity.mainNavBar)).addToBackStack("").commit();
         });
         genBinding.newFloatingButtonSglbf.setOnClickListener(view -> {
+            //Very important to set hasOptionsMenu to false, otherwise the back code will still run from this frag
             setHasOptionsMenu(false);
             SnavActivity.hasMenuBar = false;
+            //Hide the keyboard if needed
             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+            //Move to next frag
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa,
-                    EditLocationFrag.newInstance(SnavActivity.mainNavBar)).commit();
+                    EditLocationFrag.newInstance(SnavActivity.mainNavBar)).addToBackStack("").commit();
         });
     }
 
     @Override
     protected void setSearchSelectListener(){
 
+        //Called when search bar is selected
         if(SLibMainFrag.mFragState.getHasMenu()) {
-            System.out.println("WHY THE FUCK LOCATIONTAB 43:  " + SLibMainFrag.mFragState.toString());
             SLibMainFrag.mFragState = SLibMainFrag.FragState.LOCATIONLIST;
-            System.out.println("LOCATIONTAB 53:  " + SLibMainFrag.mFragState.toString());
             setListView();
         }
     }
@@ -60,9 +63,8 @@ public class LocationTabFrag extends LibraryGenFrag {
     @Override
     protected void setBackListener(){
 
-        System.out.println("LOCATIONTAB 52:  " + SLibMainFrag.mFragState.toString());
+        //Called when back is selected
         SLibMainFrag.mFragState = SLibMainFrag.FragState.LOCATIONMAIN;
-        System.out.println("LOCATIONTAB 54:  " + SLibMainFrag.mFragState.toString());
         setMain();
     }
 }

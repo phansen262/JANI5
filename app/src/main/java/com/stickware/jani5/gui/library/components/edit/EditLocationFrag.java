@@ -42,11 +42,11 @@ public class EditLocationFrag extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
 
-        System.out.println("IS THIS CODE EVEN RUNNING?");
+        //Hide keyboard
         InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
-        //requireActivity().getSupportFragmentManager().popBackStack();
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa, new SLibMainFrag()).commit();
+        //Navigates back via backstack
+        requireActivity().getSupportFragmentManager().popBackStack();
         return super.onOptionsItemSelected(item);
     }
 }

@@ -44,7 +44,6 @@ public class SnavActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
 
         if(!hasMenuBar){
-            System.out.println("Passing through the activity");
             return false;
         }
         else if(mainNavBar.getmToggle().onOptionsItemSelected(item)){
