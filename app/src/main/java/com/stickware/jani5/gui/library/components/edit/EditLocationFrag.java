@@ -50,8 +50,8 @@ public class EditLocationFrag extends Fragment {
             public void onClick(View view) {
                 setHasOptionsMenu(false);
                 //Need to address how to handle this from other locations, probably need to pass R.id number as parameter
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa, new MapFrag()).addToBackStack("").commit();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa, new MapsFragment()).addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa, new MapFrag()).addToBackStack("").commit();
+                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa, new MapsFragment()).addToBackStack("").commit();
             }
         });
     }

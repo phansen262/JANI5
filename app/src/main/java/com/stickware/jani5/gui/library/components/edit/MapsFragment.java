@@ -16,8 +16,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stickware.jani5.R;
+import com.stickware.jani5.databinding.ComponentsMapsViewBinding;
+import com.stickware.jani5.databinding.FragmentMapsBinding;
 
 public class MapsFragment extends Fragment {
+
+    private FragmentMapsBinding mapsBinding;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -43,7 +47,10 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+
+        mapsBinding = FragmentMapsBinding.inflate(inflater, container, false);
+
+        return mapsBinding.getRoot();
     }
 
     @Override
