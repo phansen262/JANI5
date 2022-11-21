@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.stickware.jani5.R;
 import com.stickware.jani5.gui.main.MainActivity;
+import com.stickware.jani5.servers.LocationServer;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class LauncherActivity extends AppCompatActivity {
         /*Start Initialization Methods*/
         setContentView(R.layout.start_launcher_activity);
 
+        setServers();
         /*End Initialization Methods*/
 
         //Exit time log to set control for minimum splashscreen display
@@ -46,5 +48,9 @@ public class LauncherActivity extends AppCompatActivity {
     private void toMainActivity(){
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    private void setServers(){
+        LocationServer.setLocationServer();
     }
 }

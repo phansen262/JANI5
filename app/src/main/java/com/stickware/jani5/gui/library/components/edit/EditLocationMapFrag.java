@@ -1,4 +1,4 @@
-package com.stickware.jani5.gui.library.components.maps;
+package com.stickware.jani5.gui.library.components.edit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -7,7 +7,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,18 +27,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.ComponentsMapsViewBinding;
+import com.stickware.jani5.servers.LocationServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener {
+public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener {
 
     private ComponentsMapsViewBinding mBinding;
     private GoogleMap mMap;
-
-    private LocationRequest mLocReq;
+    private Location mSelectedLocation;
 
     @SuppressLint("MissingPermission")
     private OnMapReadyCallback callback = googleMap -> {
@@ -48,11 +47,20 @@ public class MapFrag extends Fragment implements GoogleMap.OnMyLocationButtonCli
         //Setup map
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
-        //Get GPS current location
-        LocationManager l = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
-        Location gps = l.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        LatLng latLng = new LatLng(gps.getLatitude(), gps.getLongitude());
+        LatLng latLng = null;
+        //Get Starting Location
+        if(EditLocationFrag.editLocation.getMLocation() == null) {
+            LocationManager l = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+            mSelectedLocation = l.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            latLng = new LatLng(mSelectedLocation.getLatitude(), mSelectedLocation.getLongitude());
+        } else {
+            latLng = new LatLng(EditLocationFrag.editLocation.getMLocation().getLatitude(),
+                    EditLocationFrag.editLocation.getMLocation().getLongitude());
+        }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
+        //Move Location to server
+        EditLocationFrag.editLocation.setmLocation(mSelectedLocation);
     };
 
     @Override
@@ -85,8 +93,16 @@ public class MapFrag extends Fragment implements GoogleMap.OnMyLocationButtonCli
             mapFragment.getMapAsync(callback);
         }
 
+        mBinding.selectButtonCmv.setOnClickListener(View -> {
+
+            EditLocationFrag.editLocation.setmLocation(mSelectedLocation);
+            //Navigates back via backstack
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+
         //TODO: Check to see if this could be used for library search bar
         mBinding.searchMapCmv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
 
@@ -103,7 +119,9 @@ public class MapFrag extends Fragment implements GoogleMap.OnMyLocationButtonCli
                         addressList = geocoder.getFromLocationName(loc, 1);
 
                     } catch (IOException e) {
+                        System.err.println("JUST DID STACKTRACE");
                         e.printStackTrace();
+
                     }
 
                     if(addressList.size() != 0) {
@@ -113,6 +131,10 @@ public class MapFrag extends Fragment implements GoogleMap.OnMyLocationButtonCli
                         mMap.clear();
                         mMap.addMarker(new MarkerOptions().position(latLng).title(loc));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        //Update current location
+                        mSelectedLocation = new Location("");
+                        mSelectedLocation.setLatitude(latLng.latitude);
+                        mSelectedLocation.setLongitude(latLng.longitude);
                     }
                 }
 
@@ -126,13 +148,14 @@ public class MapFrag extends Fragment implements GoogleMap.OnMyLocationButtonCli
         });
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
 
         //Hide keyboard
         InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+        //Reset location of editLocation (can be setting to null if server jLocation doesn't have location)
+        EditLocationFrag.editLocation.setmLocation(LocationServer.activeJLocation.getMLocation());
         //Navigates back via backstack
         requireActivity().getSupportFragmentManager().popBackStack();
         return super.onOptionsItemSelected(item);
