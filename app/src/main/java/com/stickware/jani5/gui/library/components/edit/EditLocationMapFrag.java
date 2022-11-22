@@ -40,6 +40,7 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
     private GoogleMap mMap;
     private Location mSelectedLocation;
 
+    //TODO:  need to make map select and map place select work
     @SuppressLint("MissingPermission")
     private OnMapReadyCallback callback = googleMap -> {
 
