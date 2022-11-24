@@ -35,7 +35,7 @@ public class LocationTabFrag extends LibraryGenFrag {
             SnavActivity.hasMenuBar = false;
             //Move to next frag
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa,
-                    EditLocationFrag.newInstance(SnavActivity.mainNavBar)).addToBackStack("").commit();
+                    new EditLocationFrag(SnavActivity.mainNavBar)).addToBackStack("").commit();
         });
         genBinding.newFloatingButtonSglbf.setOnClickListener(view -> {
             //Very important to set hasOptionsMenu to false, otherwise the back code will still run from this frag
@@ -46,7 +46,7 @@ public class LocationTabFrag extends LibraryGenFrag {
             imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
             //Move to next frag
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa,
-                    EditLocationFrag.newInstance(SnavActivity.mainNavBar)).addToBackStack("").commit();
+                    new EditLocationFrag(SnavActivity.mainNavBar)).addToBackStack("").commit();
         });
     }
 

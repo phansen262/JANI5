@@ -27,7 +27,6 @@ import com.stickware.jani5.gui.library.navigation.MainNavBar;
 import com.stickware.jani5.logic.app_objects.JLocation;
 import com.stickware.jani5.servers.LocationServer;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class EditLocationFrag extends Fragment {
@@ -38,12 +37,8 @@ public class EditLocationFrag extends Fragment {
 
     private static MainNavBar mBar;
 
-
-    public static Fragment newInstance(MainNavBar bar){
-
-        //TODO: Need to correct this to stop memory leak, could end up with different bar based on location
+    public EditLocationFrag(MainNavBar bar){
         mBar = bar;
-        return new EditLocationFrag();
     }
 
     @Override
@@ -102,8 +97,6 @@ public class EditLocationFrag extends Fragment {
                 Bitmap selectedImageBitmap = null;
                 try {
                     selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), selectedImageUri);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

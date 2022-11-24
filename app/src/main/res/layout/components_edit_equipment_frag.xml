@@ -1,12 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+        <variable
+            name="LifeVisible"
+            type="Integer" />
+        <variable
+            name="ModelVisible"
+            type="Integer" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Name"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:inputType="text"
+                android:id="@+id/name_edittext_ceef"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:hint="Description"
+                android:minLines="3"
+                android:maxLines="5"
+                android:gravity="top"
+                android:id="@+id/description_edittext_ceef"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardElevation="3dp"
+                android:id="@+id/cardview23_ceef">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sport: "
+                        android:layout_gravity="center_vertical"/>
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:id="@+id/sport_spinner_ceef"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardElevation="3dp"
+                android:id="@+id/cardview1_ceef">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:text="Location Specific"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardElevation="3dp"
+                android:id="@+id/cardview2_ceef">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:layout_weight="0"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="10dp"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:textStyle="bold"
+                            android:text="Has Models"/>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="3dp"
+                            android:background="#919191"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="20dp"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_weight="0"
+                            android:text="Add Model"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardElevation="3dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:layout_weight="0"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="10dp"
+                            android:id="@+id/has_life_switch_ceef"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:textStyle="bold"
+                            android:text="Has Life"/>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:visibility="@{LifeVisible}">
+
+                        <Spinner
+                            android:id="@+id/incrementon_spinner_ceef"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_margin="10dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:visibility="@{LifeVisible}">
+
+                        <RadioGroup
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Increments Up"
+                                android:layout_marginHorizontal="10dp"/>
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Increments Down"
+                                android:layout_marginHorizontal="10dp"/>
+
+                        </RadioGroup>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:visibility="@{LifeVisible}">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="Max Life Value"/>
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:hint="Value"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:id="@+id/max_life_edittext_ceef"/>
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_add_a_photo_24"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginVertical="10dp"
+                android:id="@+id/image_imageview_ceef"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>
