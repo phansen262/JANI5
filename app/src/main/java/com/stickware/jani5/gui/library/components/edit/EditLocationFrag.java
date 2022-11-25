@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.ComponentsEditLocationFragBinding;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
-import com.stickware.jani5.logic.app_objects.JLocation;
+import com.stickware.jani5.logic.app_objects.jlocation.JLocation;
 import com.stickware.jani5.servers.LocationServer;
 
 import java.io.IOException;
@@ -127,8 +127,8 @@ public class EditLocationFrag extends Fragment {
         }
         //Save Button
         else if(item.getItemId() == R.id.save_basic_menus){
-            editLocation.setmName(mBinding.nameEdittextCelf.getText().toString());
-            editLocation.setmDescription(mBinding.descriptionEdittextCelf.getText().toString());
+            editLocation.setMName(mBinding.nameEdittextCelf.getText().toString());
+            editLocation.setMDescription(mBinding.descriptionEdittextCelf.getText().toString());
             LocationServer.activeJLocation = editLocation;
             return true;
         }

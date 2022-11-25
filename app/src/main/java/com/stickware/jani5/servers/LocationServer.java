@@ -1,6 +1,6 @@
 package com.stickware.jani5.servers;
 
-import com.stickware.jani5.logic.app_objects.JLocation;
+import com.stickware.jani5.logic.app_objects.jlocation.JLocation;
 
 public class LocationServer {
 

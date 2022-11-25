@@ -61,7 +61,7 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         mMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
         //Move Location to server
-        EditLocationFrag.editLocation.setmLocation(mSelectedLocation);
+        EditLocationFrag.editLocation.setMLocation(mSelectedLocation);
     };
 
     @Override
@@ -96,7 +96,7 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
 
         mBinding.selectButtonCmv.setOnClickListener(View -> {
 
-            EditLocationFrag.editLocation.setmLocation(mSelectedLocation);
+            EditLocationFrag.editLocation.setMLocation(mSelectedLocation);
             //Navigates back via backstack
             requireActivity().getSupportFragmentManager().popBackStack();
         });
@@ -156,7 +156,7 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
         InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
         //Reset location of editLocation (can be setting to null if server jLocation doesn't have location)
-        EditLocationFrag.editLocation.setmLocation(LocationServer.activeJLocation.getMLocation());
+        EditLocationFrag.editLocation.setMLocation(LocationServer.activeJLocation.getMLocation());
         //Navigates back via backstack
         requireActivity().getSupportFragmentManager().popBackStack();
         return super.onOptionsItemSelected(item);

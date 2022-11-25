@@ -9,15 +9,18 @@ import com.stickware.jani5.logic.app_objects.TestDataObject;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+
 @Deprecated
 @Dao
 public interface TestDao {
 
     @Query("SELECT * FROM testdataobject")
-    List<TestDataObject> getAll();
+    Single<List<TestDataObject>> getAll();
 
     @Query("SELECT * FROM testdataobject WHERE uid IN (:userIds)")
-    List<TestDataObject> loadAllByIds(int[] userIds);
+    Single<List<TestDataObject>> loadAllByIds(int[] userIds);
 
     @Query("SELECT * FROM testdataobject WHERE first_string LIKE :first AND testNumber LIKE :index LIMIT 1")
     TestDataObject findByName(String first, int index);
@@ -26,7 +29,7 @@ public interface TestDao {
     void insertAll(TestDataObject... testDataObjects2);
 
     @Delete
-    void delete(TestDataObject testDataObject2);
+    Completable delete(TestDataObject testDataObject2);
 
 }
 
