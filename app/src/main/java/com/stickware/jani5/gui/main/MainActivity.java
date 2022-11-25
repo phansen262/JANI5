@@ -15,6 +15,33 @@ public class MainActivity extends AppCompatActivity {
 
     public MainNavBar mainNavBar;
 
+    /*
+    private class MyTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params){
+            String url = params[0];
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "new-base").fallbackToDestructiveMigration().build();
+            UserDao userDao = db.userDao();
+            TestDataObject[] testing = new TestDataObject[]{new TestDataObject("Codl", 5)};
+            userDao.insertAll(testing);
+            TestDataObject copy = userDao.findByName("Codl", 5);
+            copy.printName();
+            db.close();
+            return doSomeWork(url);
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            System.err.println(result);
+        }
+    }
+
+    public String doSomeWork(String input){
+        return input;
+    }*/
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
 
@@ -35,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         //Navigate to default Day
         //Todo:  Add navigate to last persistence
         bNav.setSelectedItemId(R.id.bnav_day);
+
+        //Testing database and dao stuff
+        //new MyTask().execute("Test");
     }
 
     //Navigate to main location based on MenuItem from Bnav listener
