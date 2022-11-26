@@ -3,11 +3,14 @@ package com.stickware.jani5.logic.app_objects.equipment;
 import android.graphics.Bitmap;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.stickware.jani5.logic.dictionaries.Sport;
+
+import java.util.ArrayList;
 
 @Entity
 public class EquipmentTemplate {
@@ -16,29 +19,38 @@ public class EquipmentTemplate {
     @ColumnInfo(name = "name") private String mName;
     @ColumnInfo(name = "description") private String mDescription;
     @ColumnInfo(name = "sport") private Sport mSport;
-
-    @Ignore
-    private Bitmap mImage;
+    @Ignore private Bitmap mImage;
 
     @ColumnInfo(name = "location_specific") private boolean locationSpecific;
-    @ColumnInfo(name = "has_models") private boolean hasModels;
 
-    @ColumnInfo(name = "has_life_span") private boolean hasLifeSpan;
-
-    @Ignore private EquipmentLifespan mEquipmentLifespan;
+    @Embedded(prefix = "lifespan_") private EquipmentLifespan mEquipmentLifespan;
+    @ColumnInfo(name = "models") private ArrayList<EquipmentModel> activeModels;
+    @ColumnInfo(name = "retired_models") private ArrayList<EquipmentModel> retiredModels;
 
     public EquipmentTemplate(){}
 
-    public EquipmentTemplate(String name, String description, Sport sport, boolean locationSpecific,
-                             boolean hasModels, boolean hasLifeSpan, EquipmentLifespan equipmentLifespan){
+    public EquipmentTemplate(String name, String description, Sport sport, boolean locationSpecific, EquipmentLifespan equipmentLifespan){
 
         this.mName = name;
         this.mDescription = description;
         this.mSport = sport;
         this.locationSpecific = locationSpecific;
-        this.hasModels = hasModels;
-        this.hasLifeSpan = hasLifeSpan;
         this.mEquipmentLifespan = equipmentLifespan;
+    }
+
+    //Add model
+    public void addModel(EquipmentModel equipmentModel){
+        activeModels.add(equipmentModel);
+    }
+    //TODO: Should add check to make sure that item is in corresponding array list
+    //Retire and restore model
+    public void retireModel(EquipmentModel equipmentModel){
+        activeModels.remove(equipmentModel);
+        retiredModels.add(equipmentModel);
+    }
+    public void restoreModel(EquipmentModel equipmentModel){
+        retiredModels.remove(equipmentModel);
+        activeModels.add(equipmentModel);
     }
 
     //Getters and Setters
@@ -74,22 +86,6 @@ public class EquipmentTemplate {
         this.locationSpecific = locationSpecific;
     }
 
-    public boolean isHasModels() {
-        return hasModels;
-    }
-
-    public void setHasModels(boolean hasModels) {
-        this.hasModels = hasModels;
-    }
-
-    public boolean isHasLifeSpan() {
-        return hasLifeSpan;
-    }
-
-    public void setHasLifeSpan(boolean hasLifeSpan) {
-        this.hasLifeSpan = hasLifeSpan;
-    }
-
     public EquipmentLifespan getMEquipmentLifespan() {
         return mEquipmentLifespan;
     }
@@ -104,5 +100,21 @@ public class EquipmentTemplate {
 
     public void setMImage(Bitmap mImage) {
         this.mImage = mImage;
+    }
+
+    public ArrayList<EquipmentModel> getActiveModels() {
+        return activeModels;
+    }
+
+    public void setActiveModels(ArrayList<EquipmentModel> mEquipmentModels) {
+        this.activeModels = mEquipmentModels;
+    }
+
+    public ArrayList<EquipmentModel> getRetiredModels() {
+        return retiredModels;
+    }
+
+    public void setRetiredModels(ArrayList<EquipmentModel> retiredModels) {
+        this.retiredModels = retiredModels;
     }
 }

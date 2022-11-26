@@ -1,21 +1,26 @@
 package com.stickware.jani5.logic.app_objects.equipment;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class EquipmentLifespan {
 
     public enum LifespanType {
 
         MILEAGE,
-        UNIT;
+        UNIT,
+        WORKOUTS;
     }
 
-    private LifespanType lifespanType;
-    private int maxLife;
-    private int lifeIncrementFactor;
+    @PrimaryKey(autoGenerate = true) public int uid;
+    @ColumnInfo(name = "type") private LifespanType lifespanType;
+    @ColumnInfo(name = "increment_factor") private int lifeIncrementFactor;
 
-    public EquipmentLifespan(LifespanType lifespanType, int maxLife, int lifeIncrementFactor){
+    public EquipmentLifespan(LifespanType lifespanType, int lifeIncrementFactor){
 
         this.lifespanType = lifespanType;
-        this.maxLife = maxLife;
         this.lifeIncrementFactor = lifeIncrementFactor;
     }
 
@@ -30,14 +35,6 @@ public class EquipmentLifespan {
         this.lifespanType = lifespanType;
     }
 
-    public int getMaxLife() {
-        return maxLife;
-    }
-
-    public void setMaxLife(int maxLife) {
-        this.maxLife = maxLife;
-    }
-
     public int getLifeIncrementFactor() {
         return lifeIncrementFactor;
     }
@@ -45,6 +42,4 @@ public class EquipmentLifespan {
     public void setLifeIncrementFactor(int lifeIncrementFactor) {
         this.lifeIncrementFactor = lifeIncrementFactor;
     }
-
-
 }

@@ -2,19 +2,22 @@ package com.stickware.jani5.gui.library.components.edit;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.stickware.jani5.databinding.ComponentsEditEquipmentFragBinding;
+import com.stickware.jani5.databinding.RevitemEquipmentModelBinding;
+import com.stickware.jani5.gui.library.components.adapters.MRevAdapter;
+import com.stickware.jani5.gui.library.dialogs.EditEquipmentModelDialog;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
 
 public class EditEquipmentFrag extends Fragment {
@@ -48,17 +51,21 @@ public class EditEquipmentFrag extends Fragment {
         //TODO: need to set this to actually reference the object being built instead of the view
         setHasLife(mBinding.hasLifeSwitchCeef.isChecked());
 
-        //Listeners
+        //Listener for has life switch
         mBinding.hasLifeSwitchCeef.setOnClickListener(view1 -> {
             setHasLife(mBinding.hasLifeSwitchCeef.isChecked());
             hideEditTextFocus();
         });
-
-        mBinding.maxLifeEdittextCeef.setOnEditorActionListener((textView, i, keyEvent) -> {
-            mBinding.maxLifeEdittextCeef.clearFocus();
-            mBinding.cardview1Ceef.requestFocus();
-            return false;
+        //Launch dialog when asking to add model for
+        mBinding.addModelButtonCeef.setOnClickListener(view1 -> {
+            DialogFragment newFrag = new EditEquipmentModelDialog();
+            newFrag.show(requireActivity().getSupportFragmentManager(), "model_edit");
         });
+
+        mBinding.revModelsCeef.setAdapter(new MRevAdapter(5, (inflater, parent, viewType) ->
+                new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
+        }));
+        mBinding.revModelsCeef.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
     private void setHasLife(boolean lifeChecked){
@@ -89,6 +96,7 @@ public class EditEquipmentFrag extends Fragment {
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
         mBinding.nameEdittextCeef.clearFocus();
         mBinding.descriptionEdittextCeef.clearFocus();
-        mBinding.maxLifeEdittextCeef.clearFocus();
     }
+
+
 }

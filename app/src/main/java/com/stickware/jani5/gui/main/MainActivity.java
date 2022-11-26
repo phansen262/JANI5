@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             TestDataObject[] testing = new TestDataObject[]{new TestDataObject("Codl", 5)};
             userDao.insertAll(testing);
             TestDataObject copy = userDao.findByName("Codl", 5);
-
+            db.close();
 
             handler.post(new Runnable() {
                 @Override

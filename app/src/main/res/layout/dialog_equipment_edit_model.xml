@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="15dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Name"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Label: "
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Label"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max Life: "
+                android:textStyle="bold"
+                android:layout_marginRight="20dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:hint="500"
+                android:inputType="number"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="Life Unit"
+                android:layout_marginLeft="20dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</layout>
