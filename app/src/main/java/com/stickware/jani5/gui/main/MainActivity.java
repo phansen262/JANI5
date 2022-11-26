@@ -17,45 +17,12 @@ import com.stickware.jani5.logic.app_objects.TestDataObject;
 import com.stickware.jani5.servers.AppDatabase;
 import com.stickware.jani5.servers.TestDao;
 
-import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.functions.BiConsumer;
-import io.reactivex.rxjava3.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
     public MainNavBar mainNavBar;
-
-    /*
-    private class MyTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params){
-            String url = params[0];
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "new-base").fallbackToDestructiveMigration().build();
-            UserDao userDao = db.userDao();
-            TestDataObject[] testing = new TestDataObject[]{new TestDataObject("Codl", 5)};
-            userDao.insertAll(testing);
-            TestDataObject copy = userDao.findByName("Codl", 5);
-            copy.printName();
-            db.close();
-            return doSomeWork(url);
-        }
-
-        @Override
-        protected void onPostExecute(String result){
-            super.onPostExecute(result);
-            System.err.println(result);
-        }
-    }
-
-    public String doSomeWork(String input){
-        return input;
-    }*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
@@ -79,10 +46,7 @@ public class MainActivity extends AppCompatActivity {
         bNav.setSelectedItemId(R.id.bnav_day);
 
         //Testing database and dao stuff
-        //new MyTask().execute("Test");
-
-
-
+        //<editor-fold desc="Testing database and dao stuff">
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executorService.execute(() -> {
@@ -103,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         });
+        //</editor-fold>
+        //End Data base test
 
     }
 

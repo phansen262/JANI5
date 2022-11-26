@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.ComponentsMapsViewBinding;
-import com.stickware.jani5.servers.LocationServer;
+import com.stickware.jani5.logic.app_objects.jlocation.JLocationServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -156,7 +156,7 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
         InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
         //Reset location of editLocation (can be setting to null if server jLocation doesn't have location)
-        EditLocationFrag.editLocation.setMLocation(LocationServer.activeJLocation.getMLocation());
+        EditLocationFrag.editLocation.setMLocation(JLocationServer.activeJLocation.getMLocation());
         //Navigates back via backstack
         requireActivity().getSupportFragmentManager().popBackStack();
         return super.onOptionsItemSelected(item);

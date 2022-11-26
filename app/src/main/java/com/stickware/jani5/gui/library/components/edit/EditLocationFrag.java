@@ -25,7 +25,7 @@ import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.ComponentsEditLocationFragBinding;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
 import com.stickware.jani5.logic.app_objects.jlocation.JLocation;
-import com.stickware.jani5.servers.LocationServer;
+import com.stickware.jani5.logic.app_objects.jlocation.JLocationServer;
 
 import java.io.IOException;
 
@@ -48,7 +48,7 @@ public class EditLocationFrag extends Fragment {
         mBinding = ComponentsEditLocationFragBinding.inflate(inflater, container, false);
 
         //Init Location
-        editLocation = LocationServer.activeJLocation;
+        editLocation = JLocationServer.activeJLocation;
 
         //Options
         setHasOptionsMenu(true);
@@ -129,7 +129,7 @@ public class EditLocationFrag extends Fragment {
         else if(item.getItemId() == R.id.save_basic_menus){
             editLocation.setMName(mBinding.nameEdittextCelf.getText().toString());
             editLocation.setMDescription(mBinding.descriptionEdittextCelf.getText().toString());
-            LocationServer.activeJLocation = editLocation;
+            JLocationServer.activeJLocation = editLocation;
             return true;
         }
         return super.onOptionsItemSelected(item);

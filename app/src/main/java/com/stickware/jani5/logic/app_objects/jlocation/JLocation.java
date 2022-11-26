@@ -26,10 +26,11 @@ public class JLocation {
     @ColumnInfo(name = "name") private String mName;
     @ColumnInfo(name = "description") private String mDescription;
     @ColumnInfo(name = "location") private Location mLocation; //Is converted
+    @ColumnInfo(name = "location_category") private LocationCategory mCategory;
 
+    //TODO: need to be able to move bitmap image to internal storage and store reference string. Should replace object with path instead of actual image?
     @Ignore private Bitmap mImage;
 
-    @ColumnInfo(name = "location_category") private LocationCategory mCategory;
 
     //Constructors
     public JLocation(){

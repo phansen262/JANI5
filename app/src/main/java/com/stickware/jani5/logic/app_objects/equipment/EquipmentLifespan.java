@@ -8,16 +8,28 @@ public class EquipmentLifespan {
         UNIT;
     }
 
+    private LifespanType lifespanType;
     private int maxLife;
     private int lifeIncrementFactor;
 
-    public EquipmentLifespan(int currentLife, int maxLife, int lifeIncrementFactor){
+    public EquipmentLifespan(LifespanType lifespanType, int maxLife, int lifeIncrementFactor){
 
+        this.lifespanType = lifespanType;
         this.maxLife = maxLife;
         this.lifeIncrementFactor = lifeIncrementFactor;
     }
 
     //Getters and Setters
+
+
+    public LifespanType getLifespanType() {
+        return lifespanType;
+    }
+
+    public void setLifespanType(LifespanType lifespanType) {
+        this.lifespanType = lifespanType;
+    }
+
     public int getMaxLife() {
         return maxLife;
     }
@@ -33,4 +45,6 @@ public class EquipmentLifespan {
     public void setLifeIncrementFactor(int lifeIncrementFactor) {
         this.lifeIncrementFactor = lifeIncrementFactor;
     }
+
+
 }

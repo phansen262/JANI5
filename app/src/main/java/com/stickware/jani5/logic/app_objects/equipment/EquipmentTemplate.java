@@ -2,20 +2,32 @@ package com.stickware.jani5.logic.app_objects.equipment;
 
 import android.graphics.Bitmap;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.stickware.jani5.logic.dictionaries.Sport;
 
+@Entity
 public class EquipmentTemplate {
 
-    private String mName;
-    private String mDescription;
-    private Sport mSport;
+    @PrimaryKey(autoGenerate = true) public int uid;
+    @ColumnInfo(name = "name") private String mName;
+    @ColumnInfo(name = "description") private String mDescription;
+    @ColumnInfo(name = "sport") private Sport mSport;
+
+    @Ignore
     private Bitmap mImage;
 
-    private boolean locationSpecific;
-    private boolean hasModels;
+    @ColumnInfo(name = "location_specific") private boolean locationSpecific;
+    @ColumnInfo(name = "has_models") private boolean hasModels;
 
-    private boolean hasLifeSpan;
-    private EquipmentLifespan mEquipmentLifespan;
+    @ColumnInfo(name = "has_life_span") private boolean hasLifeSpan;
+
+    @Ignore private EquipmentLifespan mEquipmentLifespan;
+
+    public EquipmentTemplate(){}
 
     public EquipmentTemplate(String name, String description, Sport sport, boolean locationSpecific,
                              boolean hasModels, boolean hasLifeSpan, EquipmentLifespan equipmentLifespan){
@@ -29,29 +41,28 @@ public class EquipmentTemplate {
         this.mEquipmentLifespan = equipmentLifespan;
     }
 
-
     //Getters and Setters
-    public String getmName() {
+    public String getMName() {
         return mName;
     }
 
-    public void setmName(String mName) {
+    public void setMName(String mName) {
         this.mName = mName;
     }
 
-    public String getmDescription() {
+    public String getMDescription() {
         return mDescription;
     }
 
-    public void setmDescription(String mDescription) {
+    public void setMDescription(String mDescription) {
         this.mDescription = mDescription;
     }
 
-    public Sport getmSport() {
+    public Sport getMSport() {
         return mSport;
     }
 
-    public void setmSport(Sport mSport) {
+    public void setMSport(Sport mSport) {
         this.mSport = mSport;
     }
 
@@ -79,19 +90,19 @@ public class EquipmentTemplate {
         this.hasLifeSpan = hasLifeSpan;
     }
 
-    public EquipmentLifespan getmEquipmentLifespan() {
+    public EquipmentLifespan getMEquipmentLifespan() {
         return mEquipmentLifespan;
     }
 
-    public void setmEquipmentLifespan(EquipmentLifespan mEquipmentLifespan) {
+    public void setMEquipmentLifespan(EquipmentLifespan mEquipmentLifespan) {
         this.mEquipmentLifespan = mEquipmentLifespan;
     }
 
-    public Bitmap getmImage() {
+    public Bitmap getMImage() {
         return mImage;
     }
 
-    public void setmImage(Bitmap mImage) {
+    public void setMImage(Bitmap mImage) {
         this.mImage = mImage;
     }
 }
