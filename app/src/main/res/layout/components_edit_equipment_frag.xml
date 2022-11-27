@@ -90,6 +90,7 @@
                     <androidx.appcompat.widget.SwitchCompat
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/location_specific_switch_ceef"
                         android:layout_weight="0"
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="20dp"/>
@@ -144,7 +145,7 @@
                         android:visibility="@{LifeVisible}">
 
                         <Spinner
-                            android:id="@+id/incrementon_spinner_ceef"
+                            android:id="@+id/increment_type_spinner_ceef"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_margin="10dp" />

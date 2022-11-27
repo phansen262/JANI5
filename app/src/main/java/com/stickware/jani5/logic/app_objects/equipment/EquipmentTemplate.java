@@ -8,6 +8,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+
 import com.stickware.jani5.logic.dictionaries.Sport;
 
 import java.util.ArrayList;

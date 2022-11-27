@@ -6,12 +6,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.stickware.jani5.databinding.DialogEquipmentEditModelBinding;
 
 public class EditEquipmentModelDialog extends DialogFragment {
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 

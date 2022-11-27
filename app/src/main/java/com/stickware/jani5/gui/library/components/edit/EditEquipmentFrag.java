@@ -1,12 +1,16 @@
 package com.stickware.jani5.gui.library.components.edit;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,16 +23,43 @@ import com.stickware.jani5.databinding.RevitemEquipmentModelBinding;
 import com.stickware.jani5.gui.library.components.adapters.MRevAdapter;
 import com.stickware.jani5.gui.library.dialogs.EditEquipmentModelDialog;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
+import com.stickware.jani5.logic.app_objects.equipment.EquipmentLifespan;
+import com.stickware.jani5.logic.app_objects.equipment.EquipmentModel;
+import com.stickware.jani5.logic.app_objects.equipment.EquipmentTemplate;
+import com.stickware.jani5.logic.dictionaries.Sport;
+import com.stickware.jani5.logic.dictionaries.SportServer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditEquipmentFrag extends Fragment {
 
+    //UI
     private ComponentsEditEquipmentFragBinding mBinding;
-
     private static MainNavBar mBar;
 
+    //App Objects
+    private static EquipmentTemplate mTemplate;
+    private static EquipmentLifespan mLifespan;
+    private static List<EquipmentModel> activeModels;
+    private static List<EquipmentModel> retiredModels;
+
     //TODO:  add equipment / modify for handling new model et cetera instead of new equipment item, need to make diff clear
-    public EditEquipmentFrag(MainNavBar bar){
+    public EditEquipmentFrag(MainNavBar bar, EquipmentTemplate inputTemplate){
+
         mBar = bar;
+
+        if(inputTemplate != null) {
+            mTemplate = inputTemplate;
+            mLifespan = inputTemplate.getMEquipmentLifespan();
+            activeModels = inputTemplate.getActiveModels();
+            retiredModels = inputTemplate.getRetiredModels();
+        } else {
+            mLifespan = new EquipmentLifespan(EquipmentLifespan.LifespanType.MILEAGE, 1);
+            activeModels = new ArrayList<>();
+            retiredModels = new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -36,39 +67,100 @@ public class EditEquipmentFrag extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        mBinding = ComponentsEditEquipmentFragBinding.inflate(inflater, container, false);
+        //Setup app objects
+        if(mTemplate == null){
+            mTemplate = new EquipmentTemplate("", "", Sport.NONE, false, null);
+        }
 
-        //Options
+        //UI
+        mBinding = ComponentsEditEquipmentFragBinding.inflate(inflater, container, false);
         setHasOptionsMenu(true);
         MainNavBar.setHasMenu(mBar, false);
         return mBinding.getRoot();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO: need to set this to actually reference the object being built instead of the view
-        setHasLife(mBinding.hasLifeSwitchCeef.isChecked());
-
-        //Listener for has life switch
-        mBinding.hasLifeSwitchCeef.setOnClickListener(view1 -> {
-            setHasLife(mBinding.hasLifeSwitchCeef.isChecked());
+        //Logic for Location Specific Switch
+        if(mTemplate.isLocationSpecific()){
+            mBinding.locationSpecificSwitchCeef.setChecked(true);
+        }
+        mBinding.locationSpecificSwitchCeef.setOnCheckedChangeListener((compoundButton, b) -> {
+            mTemplate.setLocationSpecific(b);
             hideEditTextFocus();
         });
+
+        //Logic for hasLifeSwitch
+        mBinding.hasLifeSwitchCeef.setChecked(mTemplate.getMEquipmentLifespan() != null);
+        setLifeVisible(mTemplate.getMEquipmentLifespan() != null);
+        mBinding.hasLifeSwitchCeef.setOnCheckedChangeListener((compoundButton, b) -> {
+            setLifeVisible(b);
+            hideEditTextFocus();
+            if(b){
+                mTemplate.setMEquipmentLifespan(mLifespan);
+            } else {
+                mTemplate.setMEquipmentLifespan(null);
+            }
+        });
+
+        //Logic for spinner for increment
+        List<String> incrementTypeSpinnerList = EquipmentLifespan.getEnumDisplayList();
+        ArrayAdapter itscAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, incrementTypeSpinnerList);
+        itscAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBinding.incrementTypeSpinnerCeef.setAdapter(itscAdapter);
+        mBinding.incrementTypeSpinnerCeef.setOnTouchListener((view12, motionEvent) -> {
+            hideEditTextFocus();
+            return false;
+        });
+        mBinding.incrementTypeSpinnerCeef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                mLifespan.setLifespanType(EquipmentLifespan.getTypeFromDisplay(incrementTypeSpinnerList.get(i)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
         //Launch dialog when asking to add model for
         mBinding.addModelButtonCeef.setOnClickListener(view1 -> {
             DialogFragment newFrag = new EditEquipmentModelDialog();
             newFrag.show(requireActivity().getSupportFragmentManager(), "model_edit");
         });
 
-        mBinding.revModelsCeef.setAdapter(new MRevAdapter(5, (inflater, parent, viewType) ->
+        //Set up spinner
+        mBinding.sportSpinnerCeef.setOnTouchListener((view13, motionEvent) -> {
+            hideEditTextFocus();
+            return false;
+        });
+        mBinding.sportSpinnerCeef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        ArrayAdapter sscAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, SportServer.getEnumDisplayList());
+        sscAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBinding.sportSpinnerCeef.setAdapter(sscAdapter);
+
+
+        //Set up rev
+        mBinding.revModelsCeef.setAdapter(new MRevAdapter(activeModels.size(), (inflater, parent, viewType) ->
                 new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
         }));
         mBinding.revModelsCeef.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
-    private void setHasLife(boolean lifeChecked){
+    private void setLifeVisible(boolean lifeChecked){
         if(lifeChecked){
             mBinding.setLifeVisible(View.VISIBLE);
         } else {
