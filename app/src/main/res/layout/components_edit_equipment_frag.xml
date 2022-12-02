@@ -6,9 +6,6 @@
         <variable
             name="LifeVisible"
             type="Integer" />
-        <variable
-            name="ModelVisible"
-            type="Integer" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -162,19 +159,22 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:id="@+id/radio_group_ceef">
 
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Increments Up"
-                                android:layout_marginHorizontal="10dp"/>
+                                android:layout_marginHorizontal="10dp"
+                                android:id="@+id/radio0_ceef"/>
 
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Increments Down"
-                                android:layout_marginHorizontal="10dp"/>
+                                android:layout_marginHorizontal="10dp"
+                                android:id="@+id/radio1_ceef"/>
 
                         </RadioGroup>
 

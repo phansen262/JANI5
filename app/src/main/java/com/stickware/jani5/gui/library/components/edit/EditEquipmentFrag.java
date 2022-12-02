@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -39,10 +38,10 @@ public class EditEquipmentFrag extends Fragment {
     private static MainNavBar mBar;
 
     //App Objects
-    private static EquipmentTemplate mTemplate;
-    private static EquipmentLifespan mLifespan;
-    private static List<EquipmentModel> activeModels;
-    private static List<EquipmentModel> retiredModels;
+    public static EquipmentTemplate mTemplate;
+    public static EquipmentLifespan mLifespan;
+    public static List<EquipmentModel> activeModels;
+    public static List<EquipmentModel> retiredModels;
 
     //TODO:  add equipment / modify for handling new model et cetera instead of new equipment item, need to make diff clear
     public EditEquipmentFrag(MainNavBar bar, EquipmentTemplate inputTemplate){
@@ -79,6 +78,7 @@ public class EditEquipmentFrag extends Fragment {
         return mBinding.getRoot();
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -106,9 +106,24 @@ public class EditEquipmentFrag extends Fragment {
             }
         });
 
+        //Logic for radiobutton bar
+        if(mLifespan.getLifeIncrementFactor() == 1) {
+            mBinding.radio0Ceef.setChecked(true);
+        } else {
+            mBinding.radio1Ceef.setChecked(true);
+        }
+
+        mBinding.radioGroupCeef.setOnCheckedChangeListener((radioGroup, i) -> {
+            if(i == 0){
+                mLifespan.setLifeIncrementFactor(1);
+            } else {
+                mLifespan.setLifeIncrementFactor(-1);
+            }
+        });
+
         //Logic for spinner for increment
         List<String> incrementTypeSpinnerList = EquipmentLifespan.getEnumDisplayList();
-        ArrayAdapter itscAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, incrementTypeSpinnerList);
+        ArrayAdapter<String> itscAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, incrementTypeSpinnerList);
         itscAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.incrementTypeSpinnerCeef.setAdapter(itscAdapter);
         mBinding.incrementTypeSpinnerCeef.setOnTouchListener((view12, motionEvent) -> {
@@ -127,12 +142,6 @@ public class EditEquipmentFrag extends Fragment {
             }
         });
 
-        //Launch dialog when asking to add model for
-        mBinding.addModelButtonCeef.setOnClickListener(view1 -> {
-            DialogFragment newFrag = new EditEquipmentModelDialog();
-            newFrag.show(requireActivity().getSupportFragmentManager(), "model_edit");
-        });
-
         //Set up spinner
         mBinding.sportSpinnerCeef.setOnTouchListener((view13, motionEvent) -> {
             hideEditTextFocus();
@@ -148,7 +157,7 @@ public class EditEquipmentFrag extends Fragment {
             }
         });
 
-        ArrayAdapter sscAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, SportServer.getEnumDisplayList());
+        ArrayAdapter<String> sscAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, SportServer.getEnumDisplayList());
         sscAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.sportSpinnerCeef.setAdapter(sscAdapter);
 
@@ -158,6 +167,16 @@ public class EditEquipmentFrag extends Fragment {
                 new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
         }));
         mBinding.revModelsCeef.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        //Launch dialog when asking to add model for
+        mBinding.addModelButtonCeef.setOnClickListener(view1 -> {
+            DialogFragment newFrag = new EditEquipmentModelDialog(mBinding);
+            newFrag.show(requireActivity().getSupportFragmentManager(), "model_edit");
+//            mBinding.revModelsCeef.setAdapter(new MRevAdapter(activeModels.size(), (inflater, parent, viewType) ->
+//                    new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
+//            }));
+//            mBinding.revModelsCeef.setLayoutManager(new LinearLayoutManager(requireContext()));
+        });
     }
 
     private void setLifeVisible(boolean lifeChecked){

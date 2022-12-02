@@ -49,14 +49,14 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_gravity="left"
-                        android:text="Name"
+                        android:text="@{name}"
                         android:textStyle="bold"
                         android:layout_marginRight="10dp"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="0.2"
-                        android:hint="10"
+                        android:text=""
                         />
 
                 </TableRow>
@@ -71,7 +71,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:hint=""/>
+                        android:text=""/>
 
                 </TableRow>
 

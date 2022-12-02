@@ -19,12 +19,13 @@
                 android:layout_height="wrap_content"
                 android:text="Name: "
                 android:textStyle="bold"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:hint="Name"/>
+                android:hint="Name"
+                android:id="@+id/name_edittext_deem"/>
 
         </TableRow>
 
@@ -40,12 +41,13 @@
                 android:layout_height="wrap_content"
                 android:text="Label: "
                 android:textStyle="bold"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:hint="Label"/>
+                android:hint="Label"
+                android:id="@+id/label_edittext_deem"/>
 
         </TableRow>
 
@@ -68,7 +70,8 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:hint="500"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:id="@+id/maxlife_edittext_deem"/>
 
             <TextView
                 android:layout_width="0dp"
