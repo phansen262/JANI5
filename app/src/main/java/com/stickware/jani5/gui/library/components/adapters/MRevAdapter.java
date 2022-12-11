@@ -21,6 +21,9 @@ public class MRevAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      *
      *             Insert code to be run on bind view holder here
      *     }));
+     *
+     *     Make sure to include line below to actually inflate
+     *     genBinding.recyclerSglbf.setLayoutManager(new LinearLayoutManager(requireContext()));
      */
 
     //Interfaces to be used within code

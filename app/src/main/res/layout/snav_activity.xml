@@ -16,11 +16,6 @@
             android:layout_weight="1"
             android:id="@+id/frag_container_sa"/>
 
-        <!-- app:backgroundTint="@color/colorPrimaryVariant"
-        app:itemRippleColor="@color/colorPrimary"
-            app:itemTextAppearanceActive="@style/bnav_active"
-            app:itemTextAppearanceInactive="@style/bnav_inactive"-->
-
     </LinearLayout>
 
     <include layout="@layout/gen_side_menu"/>

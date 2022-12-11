@@ -141,7 +141,6 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -160,7 +159,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recycler_sglbf"/>
+                android:id="@+id/recycler_sglbf"
+                android:visibility="visible"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
