@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.stickware.jani5.R;
 import com.stickware.jani5.gui.main.MainActivity;
+import com.stickware.jani5.logic.app_objects.equipment.EquipmentServer;
 import com.stickware.jani5.logic.app_objects.jlocation.JLocationServer;
+import com.stickware.jani5.logic.database.AppServer;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -51,6 +53,8 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private void setServers(){
+        AppServer.setAppServer(this);
         JLocationServer.setLocationServer();
+        EquipmentServer.setEquipmentServer();
     }
 }

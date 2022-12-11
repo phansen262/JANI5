@@ -14,8 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stickware.jani5.R;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
 import com.stickware.jani5.logic.app_objects.TestDataObject;
-import com.stickware.jani5.servers.AppDatabase;
-import com.stickware.jani5.servers.TestDao;
+import com.stickware.jani5.logic.database.AppDatabase;
+import com.stickware.jani5.logic.database.TestDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -58,13 +58,10 @@ public class MainActivity extends AppCompatActivity {
             TestDataObject copy = userDao.findByName("Codl", 5);
             db.close();
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 
-                    System.out.println("POST THE RUNNABLE?");
-                    copy.printName();
-                }
+                System.out.println("POST THE RUNNABLE?");
+                copy.printName();
             });
         });
         //</editor-fold>

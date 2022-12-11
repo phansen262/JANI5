@@ -1,4 +1,4 @@
-package com.stickware.jani5.servers;
+package com.stickware.jani5.logic.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

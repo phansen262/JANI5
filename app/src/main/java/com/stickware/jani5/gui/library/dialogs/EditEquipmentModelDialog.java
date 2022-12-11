@@ -20,7 +20,7 @@ import com.stickware.jani5.logic.app_objects.equipment.EquipmentModel;
 public class EditEquipmentModelDialog extends DialogFragment {
 
     private DialogEquipmentEditModelBinding mBinding;
-    private ViewDataBinding parentBinding;
+    private final ViewDataBinding parentBinding;
 
     public EditEquipmentModelDialog(ViewDataBinding parentBinding){
         this.parentBinding = parentBinding;
@@ -56,17 +56,11 @@ public class EditEquipmentModelDialog extends DialogFragment {
                 mBinding.labelEdittextDeem.getText().toString(), 1,
                 Integer.parseInt(mBinding.maxlifeEdittextDeem.getText().toString()), 0);
 
+        int insertLocation = EditEquipmentFrag.activeModels.size();
         EditEquipmentFrag.activeModels.add(eModel);
 
-        //TODO: Need to find a less hacky way to do this
-        ((ComponentsEditEquipmentFragBinding) parentBinding).revModelsCeef.setAdapter(
-                new MRevAdapter(EditEquipmentFrag.activeModels.size(), (inflater, parent, viewType) ->
-                    new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
-                    ((RevitemEquipmentModelBinding) binding).setName(EditEquipmentFrag.activeModels.get(position).getModelName());
-                    ((RevitemEquipmentModelBinding) binding).setLabel(EditEquipmentFrag.activeModels.get(position).getLabel());
-                    ((RevitemEquipmentModelBinding) binding).setCurrentLife(EditEquipmentFrag.activeModels.get(position).getCurrentLife());
-                    ((RevitemEquipmentModelBinding) binding).setMaxLife(EditEquipmentFrag.activeModels.get(position).getMaxLife());
-            })
-        );
+        MRevAdapter mRevAdapter = (MRevAdapter) ((ComponentsEditEquipmentFragBinding) parentBinding).revModelsCeef.getAdapter();
+        mRevAdapter.updateItemList(EditEquipmentFrag.activeModels);
+        mRevAdapter.notifyItemInserted(insertLocation);
     }
 }

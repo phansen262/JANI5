@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MRevAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     /** How to properly use this class at location
@@ -32,18 +34,22 @@ public class MRevAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void setDisplay(ViewDataBinding binding, int position);
     }
 
-    //Count of items in rev
-    private final int mItemCount;
+    //Reference object list
+    //TODO: Make this private and add access methods?
+    public ArrayList<?> mItems;
     //Interface objects for internal use
     private final GetViewHolder getViewHolder;
     private final SetDisplay setDisplay;
 
 
-    public MRevAdapter(int itemCount, GetViewHolder getViewHolder, SetDisplay setDisplay){
-        mItemCount = itemCount;
+    public MRevAdapter(ArrayList<?> items, GetViewHolder getViewHolder, SetDisplay setDisplay){
+        this.mItems = items;
         this.getViewHolder = getViewHolder;
         this.setDisplay = setDisplay;
     }
+
+    //Need to call before asking adapter to update
+    public void updateItemList(ArrayList<?> newList){mItems = newList;}
 
     @NonNull
     @Override
@@ -53,6 +59,7 @@ public class MRevAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return getViewHolder.getViewHolder(layoutInflater, parent, viewType);
     }
 
+    //Code gets inserted from second interface here
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position){
 
@@ -61,14 +68,18 @@ public class MRevAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         setDisplay.setDisplay(vh1.mBinding, position);
     }
 
+    //Sets the type to be same as position. Binding will be handled uniquely for each item anyway, need to still include
+    //so that position is returned as a parameter
     @Override
     public int getItemViewType(int position){
         return position;
     }
 
+    //Set list size
     @Override
-    public int getItemCount(){return mItemCount;}
+    public int getItemCount(){return mItems.size();}
 
+    //Interior subclass for setting up binding
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewDataBinding mBinding;

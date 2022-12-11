@@ -13,10 +13,10 @@
             type="String" />
         <variable
             name="current_life"
-            type="Integer" />
+            type="String" />
         <variable
             name="max_life"
-            type="Integer" />
+            type="String" />
         <variable
             name="life_unit"
             type="String" />
@@ -71,7 +71,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text=""/>
+                        android:text="@{label}"/>
 
                 </TableRow>
 
@@ -89,7 +89,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text=""
+                        android:text="@{current_life}"
                         android:textStyle="bold"
                         android:layout_marginRight="10dp"/>
 
@@ -99,7 +99,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text=""
+                        android:text="@{max_life}"
                         android:layout_marginRight="10dp"/>
 
                     <TextView
@@ -116,6 +116,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/menubutton_rem"
                 android:src="@drawable/ic_baseline_more_vert_24"
                 android:layout_margin="10dp"
                 android:layout_gravity="center"/>

@@ -7,6 +7,7 @@ import com.stickware.jani5.R;
 import com.stickware.jani5.gui.library.components.edit.EditEquipmentFrag;
 import com.stickware.jani5.gui.snav.LibraryGenFrag;
 import com.stickware.jani5.gui.snav.SnavActivity;
+import com.stickware.jani5.logic.app_objects.equipment.EquipmentServer;
 
 public class EquipmentTabFrag extends LibraryGenFrag {
 
@@ -34,8 +35,9 @@ public class EquipmentTabFrag extends LibraryGenFrag {
             setHasOptionsMenu(false);
             SnavActivity.hasMenuBar = false;
             //Move to next frag
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa,
-                    new EditEquipmentFrag(SnavActivity.mainNavBar, null)).addToBackStack("").commit();
+            /*requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_sa,
+                    new EditEquipmentFrag(SnavActivity.mainNavBar, null)).addToBackStack("").commit();*/
+            EquipmentServer.launchNewEquipmentFrag(requireActivity(), R.id.frag_container_sa, SnavActivity.mainNavBar);
         });
         genBinding.newFloatingButtonSglbf.setOnClickListener(view -> {
             //Very important to set hasOptionsMenu to false, otherwise the back code will still run from this frag

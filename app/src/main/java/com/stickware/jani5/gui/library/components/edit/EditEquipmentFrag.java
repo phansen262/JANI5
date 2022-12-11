@@ -4,12 +4,16 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.ComponentsEditEquipmentFragBinding;
 import com.stickware.jani5.databinding.RevitemEquipmentModelBinding;
 import com.stickware.jani5.gui.library.components.adapters.MRevAdapter;
@@ -24,9 +29,10 @@ import com.stickware.jani5.gui.library.dialogs.EditEquipmentModelDialog;
 import com.stickware.jani5.gui.library.navigation.MainNavBar;
 import com.stickware.jani5.logic.app_objects.equipment.EquipmentLifespan;
 import com.stickware.jani5.logic.app_objects.equipment.EquipmentModel;
+import com.stickware.jani5.logic.app_objects.equipment.EquipmentServer;
 import com.stickware.jani5.logic.app_objects.equipment.EquipmentTemplate;
 import com.stickware.jani5.logic.dictionaries.Sport;
-import com.stickware.jani5.logic.dictionaries.SportServer;
+import com.stickware.jani5.logic.dictionaries.SportController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,25 +46,28 @@ public class EditEquipmentFrag extends Fragment {
     //App Objects
     public static EquipmentTemplate mTemplate;
     public static EquipmentLifespan mLifespan;
-    public static List<EquipmentModel> activeModels;
-    public static List<EquipmentModel> retiredModels;
+    public static ArrayList<EquipmentModel> activeModels;
+    public static ArrayList<EquipmentModel> retiredModels;
 
-    //TODO:  add equipment / modify for handling new model et cetera instead of new equipment item, need to make diff clear
+    //TODO:  add equipment / modify for handling new model et ce tera instead of new equipment item, need to make diff clear
     public EditEquipmentFrag(MainNavBar bar, EquipmentTemplate inputTemplate){
 
         mBar = bar;
+
+        setHasOptionsMenu(true);
 
         if(inputTemplate != null) {
             mTemplate = inputTemplate;
             mLifespan = inputTemplate.getMEquipmentLifespan();
             activeModels = inputTemplate.getActiveModels();
             retiredModels = inputTemplate.getRetiredModels();
+
         } else {
             mLifespan = new EquipmentLifespan(EquipmentLifespan.LifespanType.MILEAGE, 1);
             activeModels = new ArrayList<>();
             retiredModels = new ArrayList<>();
-        }
 
+        }
     }
 
     @Override
@@ -93,6 +102,7 @@ public class EditEquipmentFrag extends Fragment {
             hideEditTextFocus();
         });
 
+        //TODO: If this is an existing equipment, need to disable removing the has life modifier
         //Logic for hasLifeSwitch
         mBinding.hasLifeSwitchCeef.setChecked(mTemplate.getMEquipmentLifespan() != null);
         setLifeVisible(mTemplate.getMEquipmentLifespan() != null);
@@ -157,25 +167,44 @@ public class EditEquipmentFrag extends Fragment {
             }
         });
 
-        ArrayAdapter<String> sscAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, SportServer.getEnumDisplayList());
+        ArrayAdapter<String> sscAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, SportController.getEnumDisplayList());
         sscAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.sportSpinnerCeef.setAdapter(sscAdapter);
 
 
         //Set up rev
-        mBinding.revModelsCeef.setAdapter(new MRevAdapter(activeModels.size(), (inflater, parent, viewType) ->
+        mBinding.revModelsCeef.setAdapter(new MRevAdapter(activeModels, (inflater, parent, viewType) ->
                 new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
+
+            RevitemEquipmentModelBinding itemBinding = (RevitemEquipmentModelBinding) binding;
+
+            itemBinding.setName(EditEquipmentFrag.activeModels.get(position).getModelName());
+            itemBinding.setLabel(EditEquipmentFrag.activeModels.get(position).getLabel());
+            itemBinding.setCurrentLife(String.valueOf(EditEquipmentFrag.activeModels.get(position).getCurrentLife()));
+            itemBinding.setMaxLife(String.valueOf(EditEquipmentFrag.activeModels.get(position).getMaxLife()));
+
+            itemBinding.menubuttonRem.setOnClickListener(view14 -> {
+
+                PopupMenu menu = new PopupMenu(requireContext(), itemBinding.menubuttonRem);
+                menu.getMenuInflater().inflate(R.menu.equipment_model, menu.getMenu());
+                menu.setOnMenuItemClickListener(menuItem -> {
+                    if(menuItem.getItemId() == R.id.edit_em_menus){
+                        Toast.makeText(requireContext(), "Selected " + menuItem.getTitle(), Toast.LENGTH_LONG).show();
+                    } else if(menuItem.getItemId() == R.id.retire_em_menus){
+                        Toast.makeText(requireContext(), "Selected " + menuItem.getTitle(), Toast.LENGTH_LONG).show();
+                    }
+                    return true;
+                });
+                menu.show();
+            });
         }));
+
         mBinding.revModelsCeef.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         //Launch dialog when asking to add model for
         mBinding.addModelButtonCeef.setOnClickListener(view1 -> {
             DialogFragment newFrag = new EditEquipmentModelDialog(mBinding);
             newFrag.show(requireActivity().getSupportFragmentManager(), "model_edit");
-//            mBinding.revModelsCeef.setAdapter(new MRevAdapter(activeModels.size(), (inflater, parent, viewType) ->
-//                    new MRevAdapter.ViewHolder(RevitemEquipmentModelBinding.inflate(inflater, parent, false)), (binding, position) -> {
-//            }));
-//            mBinding.revModelsCeef.setLayoutManager(new LinearLayoutManager(requireContext()));
         });
     }
 
@@ -185,6 +214,13 @@ public class EditEquipmentFrag extends Fragment {
         } else {
             mBinding.setLifeVisible(View.GONE);
         }
+    }
+
+    private void hideEditTextFocus(){
+        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+        mBinding.nameEdittextCeef.clearFocus();
+        mBinding.descriptionEdittextCeef.clearFocus();
     }
 
     @Override
@@ -198,16 +234,32 @@ public class EditEquipmentFrag extends Fragment {
             //Navigates back via backstack
             requireActivity().getSupportFragmentManager().popBackStack();
             return true;
+        } else if(item.getItemId() == R.id.save_basic_menus){
+
+            //Set
+            mTemplate.setMName(mBinding.nameEdittextCeef.getText().toString());
+            mTemplate.setMDescription(mBinding.descriptionEdittextCeef.getText().toString());
+            mTemplate.setMSport(SportController.getSportFromString(mBinding.sportSpinnerCeef.getSelectedItem().toString()));
+            mTemplate.setLocationSpecific(mBinding.locationSpecificSwitchCeef.isChecked());
+            if(mBinding.hasLifeSwitchCeef.isChecked()) {
+                mTemplate.setActiveModels(activeModels);
+                mTemplate.setRetiredModels(retiredModels);
+            } else {
+                mTemplate.setActiveModels(null);
+                mTemplate.setRetiredModels(null);
+            }
+
+            EquipmentServer.saveEquipmentTemplate(mTemplate);
+
+            requireActivity().getSupportFragmentManager().popBackStack();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void hideEditTextFocus(){
-        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
-        mBinding.nameEdittextCeef.clearFocus();
-        mBinding.descriptionEdittextCeef.clearFocus();
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        requireActivity().getMenuInflater().inflate(R.menu.save, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
-
-
 }
