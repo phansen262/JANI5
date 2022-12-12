@@ -48,12 +48,17 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
         //Setup map
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
-        LatLng latLng = null;
+        LatLng latLng;
         //Get Starting Location
         if(EditLocationFrag.editLocation.getMLocation() == null) {
+
             LocationManager l = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
-            mSelectedLocation = l.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            mSelectedLocation = l.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            System.out.println(mSelectedLocation);
             latLng = new LatLng(mSelectedLocation.getLatitude(), mSelectedLocation.getLongitude());
+
+
+
         } else {
             latLng = new LatLng(EditLocationFrag.editLocation.getMLocation().getLatitude(),
                     EditLocationFrag.editLocation.getMLocation().getLongitude());
