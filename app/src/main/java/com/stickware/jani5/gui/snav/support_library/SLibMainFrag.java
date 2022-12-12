@@ -47,6 +47,8 @@ public class SLibMainFrag extends Fragment {
             mFragState = FragState.EQUIPMENTMAIN;
         }
 
+        System.out.println("THIS IS LOCATION: " + mFragState);
+
         mBinding = SnavSlMainFragBinding.inflate(inflater, container, false);
 
         //Default is to have equipment when navigated to the snav location from outside, now should move to last location when internal

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.RevitemEquipmentTemplateBinding;
 import com.stickware.jani5.gui.library.components.adapters.MRevAdapter;
+import com.stickware.jani5.gui.library.components.edit.EditEquipmentFrag;
 import com.stickware.jani5.gui.snav.LibraryGenFrag;
 import com.stickware.jani5.gui.snav.SnavActivity;
 import com.stickware.jani5.logic.app_objects.equipment.EquipmentServer;
@@ -77,6 +78,8 @@ public class EquipmentTabFrag extends LibraryGenFrag {
             //Hide the keyboard if needed
             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+            //Move to next frag
+            EquipmentServer.launchNewEquipmentFrag(requireActivity(), R.id.frag_container_sa, SnavActivity.mainNavBar);
         });
     }
 
@@ -85,7 +88,7 @@ public class EquipmentTabFrag extends LibraryGenFrag {
 
         //Called when search bar is selected
         if(SLibMainFrag.mFragState.getHasMenu()) {
-            SLibMainFrag.mFragState = SLibMainFrag.FragState.LOCATIONLIST;
+            SLibMainFrag.mFragState = SLibMainFrag.FragState.EQUIPMENTLIST;
             setListView();
         }
     }
@@ -94,7 +97,7 @@ public class EquipmentTabFrag extends LibraryGenFrag {
     protected void setBackListener(){
 
         //Called when back is selected
-        SLibMainFrag.mFragState = SLibMainFrag.FragState.LOCATIONMAIN;
+        SLibMainFrag.mFragState = SLibMainFrag.FragState.EQUIPMENTMAIN;
         setMain();
     }
 }
