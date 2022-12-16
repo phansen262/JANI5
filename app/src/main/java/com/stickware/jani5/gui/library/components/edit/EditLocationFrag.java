@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Ignore;
 
 import com.stickware.jani5.R;
 import com.stickware.jani5.databinding.ComponentsEditLocationFragBinding;

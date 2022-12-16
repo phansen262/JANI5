@@ -9,7 +9,7 @@ public enum Sport {
     WEIGHTS("Weights"),
     YOGA("Yoga");
 
-    public String label;
+    public final String label;
 
     Sport(String label){
         this.label = label;

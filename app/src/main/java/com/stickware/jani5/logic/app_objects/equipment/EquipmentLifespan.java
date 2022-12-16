@@ -1,8 +1,10 @@
 package com.stickware.jani5.logic.app_objects.equipment;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.RoomWarnings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,19 +45,27 @@ public class EquipmentLifespan {
         return retType;
     }
 
-    @PrimaryKey(autoGenerate = true) public int uid;
+    @PrimaryKey @NonNull public String equipmentName;
     @ColumnInfo(name = "type") private LifespanType lifespanType;
     @ColumnInfo(name = "increment_factor") private int lifeIncrementFactor;
 
-    public EquipmentLifespan(){}
+    public EquipmentLifespan(@NonNull String equipmentName, LifespanType lifespanType, int lifeIncrementFactor){
 
-    public EquipmentLifespan(LifespanType lifespanType, int lifeIncrementFactor){
-
+        this.equipmentName = equipmentName;
         this.lifespanType = lifespanType;
         this.lifeIncrementFactor = lifeIncrementFactor;
     }
 
     //Getters and Setters
+    @NonNull
+    public String getEquipmentName() {
+        return equipmentName;
+    }
+
+    public void setEquipmentName(@NonNull String equipmentName) {
+        this.equipmentName = equipmentName;
+    }
+
     public LifespanType getLifespanType() {
         return lifespanType;
     }

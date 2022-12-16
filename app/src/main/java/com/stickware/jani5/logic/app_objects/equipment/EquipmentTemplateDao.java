@@ -4,7 +4,12 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +20,6 @@ public interface EquipmentTemplateDao {
 
     @Query("SELECT * FROM EquipmentTemplate")
     List<EquipmentTemplate> getAll();
-
-    @Query("SELECT * FROM EquipmentTemplate WHERE name LIKE :searchName")
-    EquipmentTemplate getByName(String searchName);
 
     @Insert
     void insertItem(EquipmentTemplate equipmentTemplate);
@@ -30,4 +32,15 @@ public interface EquipmentTemplateDao {
 
     @Delete
     void deleteItems(EquipmentTemplate... equipmentTemplates);
+
+    @TypeConverter
+    static ArrayList<EquipmentModel> fromString(String value){
+        Type listType = new TypeToken<ArrayList<EquipmentModel>>(){}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    static String fromList(ArrayList<EquipmentModel> list){
+        return new Gson().toJson(list);
+    }
 }

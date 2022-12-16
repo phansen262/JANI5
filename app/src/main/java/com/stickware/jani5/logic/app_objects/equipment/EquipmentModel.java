@@ -1,5 +1,6 @@
 package com.stickware.jani5.logic.app_objects.equipment;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,16 +8,13 @@ import androidx.room.PrimaryKey;
 @Entity
 public class EquipmentModel {
 
-    @PrimaryKey(autoGenerate = true) public int uid;
-    @ColumnInfo(name = "model_name") private String modelName;
+    @PrimaryKey @NonNull private String modelName;
     @ColumnInfo(name = "label") private String label;
     @ColumnInfo(name = "model_iteration") private int modelIteration;
     @ColumnInfo(name = "max_life") private int maxLife;
     @ColumnInfo(name = "current_life") private int currentLife;
 
-    public EquipmentModel(){}
-
-    public EquipmentModel(String modelName, String label, int modelIteration, int maxLife, int currentLife) {
+    public EquipmentModel(@NonNull String modelName, String label, int modelIteration, int maxLife, int currentLife) {
 
         this.modelName = modelName;
         this.label = label;
@@ -26,11 +24,11 @@ public class EquipmentModel {
     }
 
     //Getters and Setters
-    public String getModelName() {
+    @NonNull public String getModelName() {
         return modelName;
     }
 
-    public void setModelName(String modelName) {
+    public void setModelName(@NonNull String modelName) {
         this.modelName = modelName;
     }
 

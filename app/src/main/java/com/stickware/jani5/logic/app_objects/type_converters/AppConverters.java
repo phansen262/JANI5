@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class AppConverters {
 
+    /*
     @TypeConverter
     public static ArrayList<EquipmentModel> fromString(String value){
         Type listType = new TypeToken<ArrayList<EquipmentModel>>(){}.getType();
@@ -20,5 +21,5 @@ public class AppConverters {
     @TypeConverter
     public static String fromEquipmentLifespanArrayList(ArrayList<EquipmentModel> list){
         return new Gson().toJson(list);
-    }
+    }*/
 }

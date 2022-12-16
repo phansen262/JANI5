@@ -2,11 +2,13 @@ package com.stickware.jani5.logic.app_objects.equipment;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.RoomWarnings;
 
 
 import com.stickware.jani5.logic.dictionaries.Sport;
@@ -16,21 +18,24 @@ import java.util.ArrayList;
 @Entity
 public class EquipmentTemplate {
 
-    @PrimaryKey(autoGenerate = true) public int uid;
-    @ColumnInfo(name = "name") private String mName;
+    @PrimaryKey @NonNull private String mName;
     @ColumnInfo(name = "description") private String mDescription;
     @ColumnInfo(name = "sport") private Sport mSport;
     @Ignore private Bitmap mImage;
 
     @ColumnInfo(name = "location_specific") private boolean locationSpecific;
 
-    @Embedded(prefix = "lifespan_") private EquipmentLifespan mEquipmentLifespan;
-    @ColumnInfo(name = "models") private ArrayList<EquipmentModel> activeModels;
-    @ColumnInfo(name = "retired_models") private ArrayList<EquipmentModel> retiredModels;
 
-    public EquipmentTemplate(){}
+    @Embedded(prefix = "lifespan")
+    private EquipmentLifespan mEquipmentLifespan;
 
-    public EquipmentTemplate(String name, String description, Sport sport, boolean locationSpecific, EquipmentLifespan equipmentLifespan){
+    @ColumnInfo(name = "active_models") private ArrayList<EquipmentModel> activeModels;
+    @Ignore private ArrayList<EquipmentModel> retiredModels;
+
+    @Ignore
+    public EquipmentTemplate(){this.mName = "";}
+
+    public EquipmentTemplate(@NonNull String name, String description, Sport sport, boolean locationSpecific, EquipmentLifespan equipmentLifespan){
 
         this.mName = name;
         this.mDescription = description;
@@ -55,11 +60,11 @@ public class EquipmentTemplate {
     }
 
     //Getters and Setters
-    public String getMName() {
+    @NonNull public String getMName() {
         return mName;
     }
 
-    public void setMName(String mName) {
+    public void setMName(@NonNull String mName) {
         this.mName = mName;
     }
 

@@ -63,7 +63,7 @@ public class EditEquipmentFrag extends Fragment {
             retiredModels = inputTemplate.getRetiredModels();
 
         } else {
-            mLifespan = new EquipmentLifespan(EquipmentLifespan.LifespanType.MILEAGE, 1);
+            mLifespan = new EquipmentLifespan(mTemplate.getMName(), EquipmentLifespan.LifespanType.MILEAGE, 1);
             activeModels = new ArrayList<>();
             retiredModels = new ArrayList<>();
 
