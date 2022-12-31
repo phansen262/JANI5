@@ -9,15 +9,15 @@ import androidx.room.PrimaryKey;
 public class EquipmentModel {
 
     @PrimaryKey @NonNull private String modelName;
-    @ColumnInfo(name = "label") private String label;
+    @ColumnInfo(name = "template_name") private String templateName;
     @ColumnInfo(name = "model_iteration") private int modelIteration;
     @ColumnInfo(name = "max_life") private int maxLife;
     @ColumnInfo(name = "current_life") private int currentLife;
 
-    public EquipmentModel(@NonNull String modelName, String label, int modelIteration, int maxLife, int currentLife) {
+    public EquipmentModel(@NonNull String modelName, String templateName, int modelIteration, int maxLife, int currentLife) {
 
         this.modelName = modelName;
-        this.label = label;
+        this.templateName = templateName;
         this.modelIteration = modelIteration;
         this.maxLife = maxLife;
         this.currentLife = currentLife;
@@ -32,12 +32,12 @@ public class EquipmentModel {
         this.modelName = modelName;
     }
 
-    public String getLabel() {
-        return label;
+    public String getTemplateName() {
+        return templateName;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
     }
 
     public int getModelIteration() {

@@ -63,7 +63,7 @@ public class EditEquipmentFrag extends Fragment {
             retiredModels = inputTemplate.getRetiredModels();
 
         } else {
-            mLifespan = new EquipmentLifespan(mTemplate.getMName(), EquipmentLifespan.LifespanType.MILEAGE, 1);
+            mLifespan = new EquipmentLifespan("", EquipmentLifespan.LifespanType.MILEAGE, 1);
             activeModels = new ArrayList<>();
             retiredModels = new ArrayList<>();
 
@@ -167,7 +167,7 @@ public class EditEquipmentFrag extends Fragment {
             }
         });
 
-        ArrayAdapter<String> sscAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, SportController.getEnumDisplayList());
+        ArrayAdapter<String> sscAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, SportController.getDisplayList());
         sscAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.sportSpinnerCeef.setAdapter(sscAdapter);
 
@@ -179,7 +179,7 @@ public class EditEquipmentFrag extends Fragment {
             RevitemEquipmentModelBinding itemBinding = (RevitemEquipmentModelBinding) binding;
 
             itemBinding.setName(EditEquipmentFrag.activeModels.get(position).getModelName());
-            itemBinding.setLabel(EditEquipmentFrag.activeModels.get(position).getLabel());
+            itemBinding.setLabel(EditEquipmentFrag.activeModels.get(position).getTemplateName());
             itemBinding.setCurrentLife(String.valueOf(EditEquipmentFrag.activeModels.get(position).getCurrentLife()));
             itemBinding.setMaxLife(String.valueOf(EditEquipmentFrag.activeModels.get(position).getMaxLife()));
 
@@ -239,7 +239,7 @@ public class EditEquipmentFrag extends Fragment {
             //Set
             mTemplate.setMName(mBinding.nameEdittextCeef.getText().toString());
             mTemplate.setMDescription(mBinding.descriptionEdittextCeef.getText().toString());
-            mTemplate.setMSport(SportController.getSportFromString(mBinding.sportSpinnerCeef.getSelectedItem().toString()));
+            mTemplate.setMSport(SportController.getFromString(mBinding.sportSpinnerCeef.getSelectedItem().toString()));
             mTemplate.setLocationSpecific(mBinding.locationSpecificSwitchCeef.isChecked());
             if(mBinding.hasLifeSwitchCeef.isChecked()) {
                 mTemplate.setActiveModels(activeModels);

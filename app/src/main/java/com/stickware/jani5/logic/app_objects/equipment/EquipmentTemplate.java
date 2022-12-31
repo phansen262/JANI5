@@ -29,7 +29,7 @@ public class EquipmentTemplate {
     @Embedded(prefix = "lifespan")
     private EquipmentLifespan mEquipmentLifespan;
 
-    @ColumnInfo(name = "active_models") private ArrayList<EquipmentModel> activeModels;
+    @Ignore private ArrayList<EquipmentModel> activeModels;
     @Ignore private ArrayList<EquipmentModel> retiredModels;
 
     @Ignore

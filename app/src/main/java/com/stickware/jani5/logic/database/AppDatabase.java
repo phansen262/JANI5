@@ -28,13 +28,7 @@ import com.stickware.jani5.logic.app_objects.type_converters.JavaConverters;
         EquipmentLifespan.class,
         ExerciseLog.class,
         Exercise.class,
-        ExerciseVariant.class}, version = 4)
-
-@TypeConverters({
-        AndroidConverters.class,
-        ArrayConverters.class,
-        EquipmentTemplateDao.class,
-})
+        ExerciseVariant.class}, version = 3)
 
 public abstract class AppDatabase extends RoomDatabase {
 

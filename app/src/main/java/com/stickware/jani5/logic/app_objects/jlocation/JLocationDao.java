@@ -27,8 +27,8 @@ public interface JLocationDao {
     @Query("SELECT * FROM jlocation WHERE name LIKE :search_name")
     List<JLocation> searchByName(String search_name);
 
-    @Query("SELECT * FROM jlocation WHERE location LIKE :search_location")
-    List<JLocation> searchByLocation(Location search_location);
+//    @Query("SELECT * FROM jlocation WHERE location LIKE :search_location")
+//    List<JLocation> searchByLocation(Location search_location);
 
     @Query("SELECT * FROM jlocation WHERE name LIKE '%'||:substring||'%'")
     List<JLocation> searchSubStringName(String substring);
@@ -36,8 +36,8 @@ public interface JLocationDao {
     @Query("SELECT name FROM jlocation")
     List<String> getAllNames();
 
-    @Query("SELECT location FROM jlocation WHERE name LIKE :search_name")
-    Location getLocation(String search_name);
+//    @Query("SELECT location FROM jlocation WHERE name LIKE :search_name")
+//    Location getLocation(String search_name);
 
     @Insert
     void insertItem(JLocation jLocation);
