@@ -18,6 +18,8 @@ import com.stickware.jani5.logic.app_objects_2.exercise.EVariantDAO;
 import com.stickware.jani5.logic.app_objects_2.exercise.EVariantSO;
 import com.stickware.jani5.logic.app_objects_2.exercise.ExerciseDAO;
 import com.stickware.jani5.logic.app_objects_2.exercise.ExerciseSO;
+import com.stickware.jani5.logic.app_objects_2.location.LocationDAO;
+import com.stickware.jani5.logic.app_objects_2.location.LocationSO;
 import com.stickware.jani5.logic.app_objects_2.training_plan.EventDAO;
 import com.stickware.jani5.logic.app_objects_2.training_plan.EventSO;
 import com.stickware.jani5.logic.app_objects_2.training_plan.GoalDAO;
@@ -42,6 +44,7 @@ import com.stickware.jani5.logic.app_objects_2.workout.WorkoutSO;
         ExerciseSO.class,
         EventSO.class,
         GoalSO.class,
+        LocationSO.class,
         TpPhaseSO.class,
         TrainingPlanSO.class,
         WorkoutSO.class,
@@ -59,6 +62,7 @@ public abstract class AppDatabase2 extends RoomDatabase {
     public abstract ExerciseDAO exerciseDAO();
     public abstract EventDAO eventDAO();
     public abstract GoalDAO goalDAO();
+    public abstract LocationDAO locationDAO();
     public abstract TrainingPlanDAO trainingPlanDAO();
     public abstract WorkoutDAO workoutDAO();
     public abstract WPlanDAO wPlanDAO();

@@ -57,8 +57,6 @@ public class EditLocationMapFrag extends Fragment implements GoogleMap.OnMyLocat
             System.out.println(mSelectedLocation);
             latLng = new LatLng(mSelectedLocation.getLatitude(), mSelectedLocation.getLongitude());
 
-
-
         } else {
             latLng = new LatLng(EditLocationFrag.editLocation.getMLocation().getLatitude(),
                     EditLocationFrag.editLocation.getMLocation().getLongitude());
